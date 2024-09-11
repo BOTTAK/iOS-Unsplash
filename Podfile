@@ -2,7 +2,8 @@
 # platform :ios, '9.0'
 
 target 'iOS-Unsplash' do
-  # Comment the next line if you don't want to use dynamic frameworks
+  
   use_frameworks!
+  pod 'AppMetricaAnalytics', '~> 5.7.0'
 
 end

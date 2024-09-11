@@ -39,14 +39,9 @@ class PhotoCollectionViewController: UICollectionViewController, UISearchBarDele
         UnsplashAPIClient.fetchPhotos(query: query) { result in
             switch result {
             case .success(let photos):
-                print("Received \(photos.count) photos")
                 if photos.isEmpty {
                     print("No photos received")
                 } else {
-                    for (index, photo) in photos.enumerated() {
-                        print("Photo \(index + 1) URL: \(photo.urls.regular)")
-                    }
-
                     self.photos = photos
                     DispatchQueue.main.async {
                         self.collectionView.reloadData()
