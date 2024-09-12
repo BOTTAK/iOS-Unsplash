@@ -24,6 +24,8 @@ struct Photo: Codable {
     let description: String?
     let user: User
     let urls: PhotoURLs
+    let downloads: Int?
+    let location: Location?
 
     enum CodingKeys: String, CodingKey {
         case id
@@ -37,6 +39,8 @@ struct Photo: Codable {
         case description
         case user
         case urls
+        case downloads
+        case location
     }
 }
 
@@ -50,4 +54,13 @@ struct PhotoURLs: Codable {
     let raw: String
     let full: String
     let regular: String
+}
+
+struct Location: Codable {
+    let city: String?
+    let country: String?
+
+    var fullLocation: String {
+        [city, country].compactMap { $0 }.joined(separator: ", ")
+    }
 }

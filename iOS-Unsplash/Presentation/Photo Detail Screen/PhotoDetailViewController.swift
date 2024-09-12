@@ -50,6 +50,39 @@ class PhotoDetailViewController: UIViewController {
             authorLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20)
         ])
 
+        let dateLabel = UILabel()
+        dateLabel.text = "Created at: \(photo.createdAt)"
+        dateLabel.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(dateLabel)
+
+        NSLayoutConstraint.activate([
+            dateLabel.topAnchor.constraint(equalTo: authorLabel.bottomAnchor, constant: 10),
+            dateLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            dateLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20)
+        ])
+
+        let locationLabel = UILabel()
+        locationLabel.text = "Location: \(photo.location?.fullLocation)"
+        locationLabel.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(locationLabel)
+
+        NSLayoutConstraint.activate([
+            locationLabel.topAnchor.constraint(equalTo: dateLabel.bottomAnchor, constant: 10),
+            locationLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            locationLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20)
+        ])
+
+        let downloadsLabel = UILabel()
+        downloadsLabel.text = "Downloads: \(photo.downloads)"
+        downloadsLabel.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(downloadsLabel)
+
+        NSLayoutConstraint.activate([
+            downloadsLabel.topAnchor.constraint(equalTo: locationLabel.bottomAnchor, constant: 10),
+            downloadsLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            downloadsLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20)
+        ])
+
         let favoriteButton = UIButton(type: .system)
         favoriteButton.setTitle("Add to Favorites", for: .normal)
         favoriteButton.addTarget(self, action: #selector(addToFavorites), for: .touchUpInside)
@@ -57,7 +90,7 @@ class PhotoDetailViewController: UIViewController {
         view.addSubview(favoriteButton)
 
         NSLayoutConstraint.activate([
-            favoriteButton.topAnchor.constraint(equalTo: authorLabel.bottomAnchor, constant: 20),
+            favoriteButton.topAnchor.constraint(equalTo: downloadsLabel.bottomAnchor, constant: 20),
             favoriteButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             favoriteButton.heightAnchor.constraint(equalToConstant: 50)
         ])
@@ -69,6 +102,7 @@ class PhotoDetailViewController: UIViewController {
             var favorites = UserDefaults.standard.array(forKey: favoritesKey) as? [Data] ?? []
             favorites.append(encodedPhoto)
             UserDefaults.standard.setValue(favorites, forKey: favoritesKey)
+
             NotificationCenter.default.post(name: NSNotification.Name("FavoritesUpdated"), object: nil)
             showAlert("Photo added to Favorites")
         } else {
