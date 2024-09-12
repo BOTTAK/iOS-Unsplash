@@ -62,7 +62,7 @@ class PhotoDetailViewController: UIViewController {
         ])
 
         let locationLabel = UILabel()
-        locationLabel.text = "Location: \(photo.location?.fullLocation)"
+        locationLabel.text = "Location: \(photo.location?.position)"
         locationLabel.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(locationLabel)
 
